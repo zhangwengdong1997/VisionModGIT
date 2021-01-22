@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C844D4CF-CEB6-481C-96C5-995C1DE5ABD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LSVisionMod</RootNamespace>
+    <AssemblyName>LSVisionMod</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="halcondotnet, Version=17.12.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+      <HintPath>..\packages\HalconDotNet.17.12.0\lib\net35\halcondotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>E:\微信\WeChat Files\wxid_j1x84k6eq0vt22\FileStorage\File\2020-12\HXfoam1\HXfoam\HXfoam\bin\Debug\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design">
+      <HintPath>E:\微信\WeChat Files\wxid_j1x84k6eq0vt22\FileStorage\File\2020-12\HXfoam1\HXfoam\HXfoam\bin\Debug\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts">
+      <HintPath>E:\微信\WeChat Files\wxid_j1x84k6eq0vt22\FileStorage\File\2020-12\HXfoam1\HXfoam\HXfoam\bin\Debug\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="MvCameraControl.Net">
+      <HintPath>C:\Program Files (x86)\MVS\Development\DotNet\AnyCpu\MvCameraControl.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ChangeImageType.cs" />
+    <Compile Include="Common\FileOperation.cs" />
+    <Compile Include="Common\HalconFun.cs" />
+    <Compile Include="Common\HKCameraCltr.cs" />
+    <Compile Include="Common\检测功能\IdentifyFun.cs" />
+    <Compile Include="Common\IniManager.cs" />
+    <Compile Include="Common\定位功能\MatchingFun.cs" />
+    <Compile Include="Common\定位功能\可变形模板定位.cs" />
+    <Compile Include="Common\定位功能\形状模板定位.cs" />
+    <Compile Include="Common\定位功能\无模板定位.cs" />
+    <Compile Include="Common\MyRun.cs" />
+    <Compile Include="Common\VisionMod.cs" />
+    <Compile Include="Common\检测功能\区域筛选计数.cs" />
+    <Compile Include="Common\检测功能\字符识别.cs" />
+    <Compile Include="Common\模板步骤\CamStep.cs" />
+    <Compile Include="Common\模板步骤\MatchingStep.cs" />
+    <Compile Include="Common\模板步骤\ProductModelStep.cs" />
+    <Compile Include="Common\模板步骤\TestItemStep.cs" />
+    <Compile Include="Model\Cam.cs" />
+    <Compile Include="Model\CamStatus.cs" />
+    <Compile Include="Model\Matching.cs" />
+    <Compile Include="Model\ModelType.cs" />
+    <Compile Include="Model\NowModel.cs" />
+    <Compile Include="Model\OutResult.cs" />
+    <Compile Include="Model\Parameter.cs" />
+    <Compile Include="Model\ProductModel.cs" />
+    <Compile Include="Model\OutImage.cs" />
+    <Compile Include="Model\ModelSteps.cs" />
+    <Compile Include="Model\TestItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\新建模板.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\新建模板.Designer.cs">
+      <DependentUpon>新建模板.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\检测功能\字符识别参数设置.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\检测功能\字符识别参数设置.Designer.cs">
+      <DependentUpon>字符识别参数设置.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\检测功能\I检测参数设置.cs" />
+    <Compile Include="View\模板步骤\检测项添加.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\模板步骤\检测项添加.Designer.cs">
+      <DependentUpon>检测项添加.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\模板步骤\匹配定位.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\模板步骤\匹配定位.Designer.cs">
+      <DependentUpon>匹配定位.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\模板步骤\相机配置.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\模板步骤\相机配置.Designer.cs">
+      <DependentUpon>相机配置.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\模板步骤\选择模板类型.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\模板步骤\选择模板类型.Designer.cs">
+      <DependentUpon>选择模板类型.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\新建模板.resx">
+      <DependentUpon>新建模板.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\检测功能\字符识别参数设置.resx">
+      <DependentUpon>字符识别参数设置.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\模板步骤\检测项添加.resx">
+      <DependentUpon>检测项添加.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\模板步骤\匹配定位.resx">
+      <DependentUpon>匹配定位.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\模板步骤\相机配置.resx">
+      <DependentUpon>相机配置.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\模板步骤\选择模板类型.resx">
+      <DependentUpon>选择模板类型.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
