@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LSVisionMod.Common
 {
-    class HKCameraCltr
+    public class HKCameraCltr
     {
         [DllImport("kernel32.dll", EntryPoint = "CopyMemory", SetLastError = false)]
         private static extern void CopyMemory(IntPtr dest, IntPtr src, uint count);
@@ -260,7 +260,7 @@ namespace LSVisionMod.Common
         }
 
         public void HardMode()
-        { 
+        {
             cbImage = new MyCamera.cbOutputExdelegate(HardCapture);
             int nIndex;
             foreach (var item in m_listUserDefinedName)

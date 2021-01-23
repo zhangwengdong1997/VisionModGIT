@@ -118,6 +118,12 @@
     <Compile Include="View\模板步骤\匹配定位.Designer.cs">
       <DependentUpon>匹配定位.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\模板步骤\相机拼接.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\模板步骤\相机拼接.Designer.cs">
+      <DependentUpon>相机拼接.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\模板步骤\相机配置.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\模板步骤\匹配定位.resx">
       <DependentUpon>匹配定位.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\模板步骤\相机拼接.resx">
+      <DependentUpon>相机拼接.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\模板步骤\相机配置.resx">
       <DependentUpon>相机配置.cs</DependentUpon>

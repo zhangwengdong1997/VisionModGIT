@@ -177,7 +177,7 @@ namespace LSVisionMod.Common
 
         public static IdentifyFun GetTestItem(TestItem testItem)
         {
-            switch (testItem.Type)
+             switch (testItem.Type)
             {
                 case "字符识别":
                     return new 字符识别(testItem);
@@ -216,7 +216,7 @@ namespace LSVisionMod.Common
             return true;
         }
 
-
+        
         public static bool HardMode()
         {
             try
@@ -314,7 +314,6 @@ namespace LSVisionMod.Common
                     ParameterSetControl = new 字符识别参数设置();
                     return true;
                 case "区域筛选计数":
-                    
                     return true;
                 default:
                     return false;

@@ -18,10 +18,23 @@ namespace LSVisionMod.Common
     /// <summary>
     /// 管理外部程序可以调用的功能
     /// </summary>
-    public static class VisionMod
-    { 
+    public class VisionMod
+    {
+        #region 初始化
+        public static bool Connect()
+        {
+            if (MyRun.havInit) return true;
+            if (!MyRun.Init())
+            {
+                StrErrorMsg = MyRun.StrErrorMsg;
+                return false;
+            }
 
+            return true;
+        }
+        #endregion
 
+        #region 异常
         /// <summary>
         /// 保存最后一次异常信息
         /// </summary>
@@ -46,71 +59,55 @@ namespace LSVisionMod.Common
         /// </summary>
         public static event EventHandler<string> ErrorEvent;
 
-        /// <summary>
-        /// 拍照事件
-        /// </summary>
-        public static event EventHandler<OutImage> SoftwareOnceEvent;
-        /// <summary>
-        /// 检测事件
-        /// </summary>
-        public static event EventHandler<OutResult> DetectionOnceEvent;
+        #endregion
+
+        #region 事件
+
         /// <summary>
         /// 新建模板完成事件
         /// </summary>
-        public static event EventHandler CreateNewModelEvent;
+        public static event EventHandler<string> CreateNewModelFinishEvent;
 
         /// <summary>
-        /// 删除模板事件
+        /// 编辑模板完成事件
         /// </summary>
-        public static event EventHandler DeleteModelEvent;
+        public static event EventHandler<string> EditModelFinishEvent;
+        /// <summary>
+        /// 删除模板完成事件
+        /// </summary>
+        public static event EventHandler<string> DeleteModelFinishEvent;
+
 
         /// <summary>
-        /// 手动控制停止检测的信号
+        /// 拍照事件
         /// </summary>
-        public static EventWaitHandle stopDetectionSignal = new EventWaitHandle(false, EventResetMode.ManualReset);
-
-        private static Thread DetectionThread;
-        static object obj = new object();
-
+        public event EventHandler<OutImage> SoftwareOnceEvent;
         /// <summary>
-        /// 如果没有使用视觉模块的创建模板功能，需要在这里初始化视觉模块
+        /// 检测事件
         /// </summary>
-        /// <returns></returns>
-        public static bool Connect()
-        {
-            if (MyRun.havInit) return true;
-            if (!MyRun.Init())
-            {
-                StrErrorMsg = MyRun.StrErrorMsg;
-                return false;
-            }
-            MyRun.ModelNumberChangeEvent += MyRun_ModelNumberChangeEvent;
-            
-            return true;
-        }
+        public event EventHandler<OutResult> DetectionOnceEvent;
 
-        
+        #endregion
 
-        private static void MyRun_ModelNumberChangeEvent(object sender, EventArgs e)
-        {
-            CreateNewModelEvent?.Invoke(null, null);
-        }
+        #region 模板
 
-        public static List<string> UseCamsName = new List<string>();
-        public static List<MatchingFun> UseMatchingFun = new List<MatchingFun>();
-        public static List<IdentifyFun> UseTestItems = new List<IdentifyFun>();
+        public List<string> UseCamsName = new List<string>();
+        public List<MatchingFun> UseMatchingFun = new List<MatchingFun>();
+        public List<IdentifyFun> UseTestItems = new List<IdentifyFun>();
 
         /// <summary>
         /// 保存识别结果
         /// </summary>
-        private static List<OutResult> OutResults = new List<OutResult>();
-        static ProductModel UseModel;
+        private List<OutResult> OutResults = new List<OutResult>();
+        ProductModel UseModel;
+
+
         /// <summary>
         /// 切换型号模板
         /// </summary>
         /// <param name="modelName">模板名</param>
         /// <returns></returns>
-        public static bool PrepareModel(string modelName)
+        public bool PrepareModel(string modelName)
         {
             if (!MyRun.havInit)
             {
@@ -150,6 +147,64 @@ namespace LSVisionMod.Common
 
             return true;
         }
+
+        #endregion
+
+        #region 相机
+
+        /// <summary>
+        /// 查看相机是否连接
+        /// </summary>
+        /// <param name="camStatus">所以相机的连接状态列表</param>
+        /// <returns>true表示所有的相机连接，false表示有相机未连接</returns>
+        public static bool CamConnectStatus(out List<CamStatus> camStatus)
+        {
+
+            bool isConnect;
+            bool isAllConnect = true;
+            camStatus = new List<CamStatus>();
+            if (!MyRun.havInit)
+            {
+                StrErrorMsg = "视觉模块未初始化";
+                return false;
+            }
+            if (HKCameraCltr.GetListUserDefinedName().Count == 0)
+            {
+                return false;
+            }
+            foreach (var camName in HKCameraCltr.GetListUserDefinedName())
+            {
+                isConnect = MyRun.IsCamConnect(camName);
+                isAllConnect = isAllConnect && isConnect;
+                camStatus.Add(new CamStatus()
+                {
+                    CamName = camName,
+                    IsConnect = isConnect
+                });
+
+            }
+            return isAllConnect;
+        }
+        /// <summary>
+        /// 重连相机
+        /// </summary>
+        /// <returns></returns>
+        public static bool ReConnectCam()
+        {
+            if (!MyRun.havInit)
+            {
+                StrErrorMsg = "视觉模块未初始化";
+                return false;
+            }
+            if (!MyRun.ReconnectCam())
+            {
+                StrErrorMsg = MyRun.StrErrorMsg;
+                return false;
+            }
+            return true;
+
+        }
+
         /// <summary>
         /// 切换到实时模式，使用实时模式时请设置好相机的帧率，防止画面撕裂
         /// </summary>
@@ -192,7 +247,7 @@ namespace LSVisionMod.Common
         /// 切换到硬件触发模式
         /// </summary>
         /// <returns></returns>
-        public static bool HardMode()
+        public bool HardMode()
         {
             if (!MyRun.havInit)
             {
@@ -204,18 +259,19 @@ namespace LSVisionMod.Common
                 StrErrorMsg = MyRun.StrErrorMsg;
                 return false;
             }
+
             HKCameraCltr.HardTriggerEvent += HKCameraCltr_HardTriggerEvent;
             return true;
         }
 
-        private static void HKCameraCltr_HardTriggerEvent(object sender, HObject e)
+        private void HKCameraCltr_HardTriggerEvent(object sender, HObject e)
         {
             string camName = (string)sender;
             HObject inImage = e;
             SoftwareOnceEvent?.Invoke(null, new OutImage(camName, inImage));
             foreach (var testItem in UseTestItems)
             {
-                if(testItem.camName == camName)
+                if (testItem.camName == camName)
                 {
                     testItem.Find(inImage);
                     testItem.Show(inImage, out HObject resultImage);
@@ -233,59 +289,58 @@ namespace LSVisionMod.Common
             }
             inImage.Dispose();
         }
+
         /// <summary>
         /// 触发所有相机拍照
         /// </summary>
         /// <param name="imageType">存储与传输图片的格式</param>
         /// <returns></returns>
-        public static bool TriggerAllCamera(ImageType imageType = ImageType.HObject)
+        public bool TriggerAllCamera(ImageType imageType = ImageType.HObject)
         {
             if (!MyRun.havInit)
             {
                 StrErrorMsg = "视觉模块未初始化";
                 return false;
             }
-            lock (obj)
-            {
-                if (UseCamsName.Count == 0)
-                {
-                    StrErrorMsg = "未选择模板";
-                    return false;
-                }
-                foreach (var camName in UseCamsName.ToArray())
-                {
 
-                    if (imageType == ImageType.HObject)
-                    {
-                        MyRun.TriggerCamera(camName, out HObject outImage);
-                        if (outImage != null)
-                        {
-                            SoftwareOnceEvent?.Invoke(null, new OutImage(camName, outImage));
-                            outImage.Dispose();
-                        }
-                        else
-                        {
-                            StrErrorMsg = MyRun.StrErrorMsg;
-                            return false;
-                        }
-                    }
-                    if (imageType == ImageType.Bitmap)
-                    {
-                        MyRun.TriggerCamera(camName, out Bitmap outImage);
-                        if (outImage != null)
-                        {
-                            SoftwareOnceEvent?.Invoke(null, new OutImage(camName, outImage));
-                            outImage.Dispose();
-                        }
-                        else
-                        {
-                            StrErrorMsg = MyRun.StrErrorMsg;
-                            return false;
-                        }
-                    } 
-                }
-                return true;
+            if (UseCamsName.Count == 0)
+            {
+                StrErrorMsg = "未选择模板";
+                return false;
             }
+            foreach (var camName in UseCamsName.ToArray())
+            {
+
+                if (imageType == ImageType.HObject)
+                {
+                    MyRun.TriggerCamera(camName, out HObject outImage);
+                    if (outImage != null)
+                    {
+                        SoftwareOnceEvent?.Invoke(null, new OutImage(camName, outImage));
+                        outImage.Dispose();
+                    }
+                    else
+                    {
+                        StrErrorMsg = MyRun.StrErrorMsg;
+                        return false;
+                    }
+                }
+                if (imageType == ImageType.Bitmap)
+                {
+                    MyRun.TriggerCamera(camName, out Bitmap outImage);
+                    if (outImage != null)
+                    {
+                        SoftwareOnceEvent?.Invoke(null, new OutImage(camName, outImage));
+                        outImage.Dispose();
+                    }
+                    else
+                    {
+                        StrErrorMsg = MyRun.StrErrorMsg;
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -302,30 +357,27 @@ namespace LSVisionMod.Common
                 outHoImage = null;
                 return false;
             }
-            lock (obj)
+            try
             {
-                try
+                MyRun.TriggerCamera(camName, out outHoImage);
+                if (outHoImage != null)
                 {
-                    MyRun.TriggerCamera(camName, out outHoImage);
-                    if (outHoImage != null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        StrErrorMsg = MyRun.StrErrorMsg;
-                        return false;
-                    }
-
+                    return true;
                 }
-                catch (Exception ex)
+                else
                 {
-                    StrErrorMsg = "图片获取失败" + ex.Message;
-                    outHoImage = null;
+                    StrErrorMsg = MyRun.StrErrorMsg;
                     return false;
                 }
 
             }
+            catch (Exception ex)
+            {
+                StrErrorMsg = "图片获取失败" + ex.Message;
+                outHoImage = null;
+                return false;
+            }
+
         }
 
         /// <summary>
@@ -342,31 +394,51 @@ namespace LSVisionMod.Common
                 outBitmap = null;
                 return false;
             }
-            lock (obj)
+            try
             {
-                try
+                MyRun.TriggerCamera(camName, out outBitmap);
+                if (outBitmap != null)
                 {
-                    MyRun.TriggerCamera(camName, out outBitmap);
-                    if (outBitmap != null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        StrErrorMsg = MyRun.StrErrorMsg;
-                        return false;
-                    }
-                        
+                    return true;
                 }
-                catch (Exception ex)
+                else
                 {
-                    StrErrorMsg = "图片获取失败" + ex.Message;
-                    outBitmap = null;
+                    StrErrorMsg = MyRun.StrErrorMsg;
                     return false;
                 }
 
             }
+            catch (Exception ex)
+            {
+                StrErrorMsg = "图片获取失败" + ex.Message;
+                outBitmap = null;
+                return false;
+            }
+
         }
+
+        public enum ImageType
+        {
+            HObject = 0,
+            Bitmap = 1
+        }
+
+        #endregion
+
+        #region 检测
+
+        /// <summary>
+        /// 手动控制停止检测的信号
+        /// </summary>
+        public EventWaitHandle stopDetectionSignal = new EventWaitHandle(false, EventResetMode.ManualReset);
+
+        /// <summary>
+        /// 检测线程
+        /// </summary>
+        private Thread DetectionThread;
+
+        static object obj = new object();
+
 
         /// <summary>
         /// 触发检测，更具当前切换的型号模板进行拍照识别
@@ -375,10 +447,8 @@ namespace LSVisionMod.Common
         /// 同一时刻只能有一个TriggerDetection在运行
         /// </summary>
         /// <returns></returns>
-        public static bool TriggerDetection()
+        public bool TriggerDetection()
         {
-            
-
             if (!MyRun.havInit)
             {
                 StrErrorMsg = "视觉模块未初始化";
@@ -404,7 +474,7 @@ namespace LSVisionMod.Common
                 {
                     Parallel.ForEach(UseCamsName.ToArray(), camName =>
                     {
-                        if(MyRun.TriggerCamera(camName, out HObject camImage))
+                        if (MyRun.TriggerCamera(camName, out HObject camImage))
                         {
                             if (camImage != null)
                             {
@@ -412,13 +482,13 @@ namespace LSVisionMod.Common
 
                                 camImages.AddOrUpdate(camName, camImage, (k, v) => v = camImage);
                             }
-                                
+
                         }
                         else
                         {
                             StrErrorMsg = MyRun.StrErrorMsg;
                         }
-                        
+
                     });
 
                     //待升级:这里添加对产品是否到位的判断，通过特征检测的方式实现，不符合要求的则将图片丢弃
@@ -431,7 +501,7 @@ namespace LSVisionMod.Common
                         if (!matchingFun.matching.Name.Equals("无模板定位") && camImages.TryGetValue(matchingFun.matching.CamName, out HObject camImage))
                         {
                             int nRet = matchingFun.Find(camImage, out HObject matchImage);
-                            
+
                             if (nRet == 0)
                             {
                                 matchImages.AddOrUpdate(matchingFun.matching.Name, matchImage, (k, v) => v = matchImage);
@@ -531,7 +601,7 @@ namespace LSVisionMod.Common
         /// </summary>
         /// <param name="outResult">TriggerDetection的结果</param>
         /// <returns></returns>
-        public static bool WaitDetectionResult(out List<OutResult> outResults)
+        public bool WaitDetectionResult(out List<OutResult> outResults)
         {
             outResults = OutResults;
             while (OutResults.Count < UseModel.testItems.Count)
@@ -551,7 +621,7 @@ namespace LSVisionMod.Common
         /// <param name="outResults"></param>
         /// <param name="overTime">单位毫秒</param>
         /// <returns></returns>
-        public static bool WaitDetectionResult(out List<OutResult> outResults, int overTime)
+        public bool WaitDetectionResult(out List<OutResult> outResults, int overTime)
         {
             DateTime time = DateTime.Now;
             //Thread.Sleep(50);
@@ -583,7 +653,7 @@ namespace LSVisionMod.Common
         /// </summary>
         /// <param name="outResult"></param>
         /// <returns></returns>
-        public static bool TriggerDetection(out List<OutResult> outResults)
+        public bool TriggerDetection(out List<OutResult> outResults)
         {
             outResults = null;
             if (!MyRun.havInit)
@@ -596,7 +666,7 @@ namespace LSVisionMod.Common
                 StrErrorMsg = "上一次拍照识别并未结束";
                 return false;
             }
-            
+
             OutResults.Clear();
 
             ConcurrentDictionary<string, HObject> camImages = new ConcurrentDictionary<string, HObject>();
@@ -676,22 +746,21 @@ namespace LSVisionMod.Common
             outResults = OutResults;
             return true;
         }
-        
+
         /// <summary>
         /// 停止检测
         /// TriggerDetection内的循环会结束，返回识别结果
         /// </summary>
         /// <returns></returns>
-        public static bool StopDetection()
+        public bool StopDetection()
         {
             return stopDetectionSignal.Set();
         }
 
-        public enum ImageType
-        {
-            HObject = 0,
-            Bitmap = 1
-        }
+        #endregion
+
+        #region 界面
+
         /// <summary>
         /// 获取型号模板列表
         /// </summary>
@@ -721,7 +790,7 @@ namespace LSVisionMod.Common
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 StrErrorMsg = "模板型号列表获取失败" + e.Message;
                 return false;
@@ -729,6 +798,14 @@ namespace LSVisionMod.Common
             return true;
         }
 
+        /// <summary>
+        /// 获取检测项预览图片
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="bigImage"></param>
+        /// <param name="smallImage"></param>
+        /// <returns></returns>
         public static bool GetTemplateImage(string modelName, string itemName, out Bitmap bigImage, out Bitmap smallImage)
         {
             bigImage = null;
@@ -754,8 +831,6 @@ namespace LSVisionMod.Common
                 return false;
             }
         }
-
-
 
         /// <summary>
         /// 添加型号模板
@@ -804,7 +879,7 @@ namespace LSVisionMod.Common
         public static bool DeleteProductModel(string modelName)
         {
             FileOperation.DelectDir(MyRun.appPath + "\\model\\" + modelName);
-            DeleteModelEvent?.Invoke(null, null);
+            DeleteModelFinishEvent?.Invoke(null, modelName);
             return true;
         }
 
@@ -835,59 +910,7 @@ namespace LSVisionMod.Common
             return true;
         }
 
-        /// <summary>
-        /// 查看相机是否连接
-        /// </summary>
-        /// <param name="camStatus">所以相机的连接状态列表</param>
-        /// <returns>true表示所有的相机连接，false表示有相机未连接</returns>
-        public static bool CamConnectStatus(out List<CamStatus> camStatus)
-        {
-
-            bool isConnect;
-            bool isAllConnect = true;
-            camStatus = new List<CamStatus>();
-            if (!MyRun.havInit)
-            {
-                StrErrorMsg = "视觉模块未初始化";
-                return false;
-            }
-            if (HKCameraCltr.GetListUserDefinedName().Count == 0)
-            {
-                return false;
-            }
-            foreach (var camName in HKCameraCltr.GetListUserDefinedName())
-            {
-                isConnect = MyRun.IsCamConnect(camName);
-                isAllConnect = isAllConnect && isConnect;
-                camStatus.Add(new CamStatus()
-                {
-                    CamName = camName,
-                    IsConnect = isConnect
-                });
-
-            }
-            return isAllConnect;
-        }
-
-        /// <summary>
-        /// 重连相机
-        /// </summary>
-        /// <returns></returns>
-        public static bool ReConnectCam()
-        {
-            if (!MyRun.havInit)
-            {
-                StrErrorMsg = "视觉模块未初始化";
-                return false;
-            }
-            if (!MyRun.ReconnectCam())
-            {
-                StrErrorMsg = MyRun.StrErrorMsg;
-                return false;
-            }
-            return true;
-            
-        }
+        #endregion
 
     }
 }

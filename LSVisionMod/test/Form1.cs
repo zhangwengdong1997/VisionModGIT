@@ -17,6 +17,7 @@ namespace test
 {
     public partial class Form1 : Form
     {
+        VisionMod visionMod = new VisionMod();
         public Form1()
         {
             InitializeComponent();
@@ -48,14 +49,14 @@ namespace test
 
         private void button3_Click(object sender, EventArgs e)
         {
-            VisionMod.PrepareModel("1234");
-            VisionMod.TriggerDetection();
+            visionMod.PrepareModel("1234");
+            visionMod.TriggerDetection();
             
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            VisionMod.WaitDetectionResult(out List<OutResult> outResults,10000);
+            visionMod.WaitDetectionResult(out List<OutResult> outResults,10000);
             pictureBox1.Image = outResults[0].EffectImage.BmpImage;
             pictureBox2.Image = outResults[1].EffectImage.BmpImage;
         }
