@@ -38,6 +38,7 @@ namespace LSVisionMod.View.模板步骤
         {
             //关联Halcon窗口
             halconFun.SetWindowHandle(pictureBox1);
+            halconFun.SetLineWidth(3);
             halconFun.InitHistoryRegions();
             MatchingStep.GetMatchingTypeList(out matchTypes);
             cmb定位模板类型.DataSource = matchTypes;
@@ -45,7 +46,7 @@ namespace LSVisionMod.View.模板步骤
 
         private void btn新建区域_Click(object sender, EventArgs e)
         {
-            ButtonEnabled(false);
+            ButtonEnabled(this.Controls, false);
             halconFun.AddHistoryRegions();
             halconFun.SetRegionColor(Color.Green);
             this.Focus();
@@ -56,24 +57,27 @@ namespace LSVisionMod.View.模板步骤
             if (rdo多边形区域.Checked)
                 halconFun.DrawRegion(halconFun.DrawPolygon, HalconFun.Operation.New);
             halconFun.HWindowRefresh(Color.Red, HalconFun.RegionFillMode.Margin);
-            ButtonEnabled(true);
+            ButtonEnabled(this.Controls, true);
         }
-        private void ButtonEnabled(bool enabled)
+        private void ButtonEnabled(ControlCollection collection, bool enabled)
         {
-            foreach (Control control in this.Controls)
+            foreach (Control control in collection)
             {
                 if (control.GetType().Equals(typeof(Button)))
                 {
                     control.Enabled = enabled;
                 }
+                if(control.Controls.Count > 0)
+                {
+                    ButtonEnabled(control.Controls, enabled);
+                }
             }
 
         }
 
-
         private void btn添加区域_Click(object sender, EventArgs e)
         {
-            ButtonEnabled(false);
+            ButtonEnabled(this.Controls, false);
             halconFun.AddHistoryRegions();
             halconFun.SetRegionColor(Color.Green);
             this.Focus();
@@ -84,12 +88,12 @@ namespace LSVisionMod.View.模板步骤
             if (rdo多边形区域.Checked)
                 halconFun.DrawRegion(halconFun.DrawPolygon, HalconFun.Operation.Add);
             halconFun.HWindowRefresh(Color.Red, HalconFun.RegionFillMode.Margin);
-            ButtonEnabled(true);
+            ButtonEnabled(this.Controls, true);
         }
 
         private void btn减少区域_Click(object sender, EventArgs e)
         {
-            ButtonEnabled(false);
+            ButtonEnabled(this.Controls, false);
             halconFun.AddHistoryRegions();
             halconFun.SetRegionColor(Color.Green);
             this.Focus();
@@ -100,7 +104,7 @@ namespace LSVisionMod.View.模板步骤
             if (rdo多边形区域.Checked)
                 halconFun.DrawRegion(halconFun.DrawPolygon, HalconFun.Operation.Cut);
             halconFun.HWindowRefresh(Color.Red, HalconFun.RegionFillMode.Margin);
-            ButtonEnabled(true);
+            ButtonEnabled(this.Controls, true);
         }
 
         private void btn撤销上一步_Click(object sender, EventArgs e)
@@ -131,6 +135,7 @@ namespace LSVisionMod.View.模板步骤
             double score;
             matchingfun.Find(halconFun.m_hoImage, out halconFun.m_hoImage, out score);
             halconFun.HWindowRefresh(Color.Red, HalconFun.RegionFillMode.Margin);
+            halconFun.ShowRegion(matchingfun.outContour, Color.Red);
             lab模板匹配率.Text = "模板匹配率:" + score.ToString("P3");
         }
 
@@ -140,7 +145,7 @@ namespace LSVisionMod.View.模板步骤
             {
                 return;
             }
-            if (camName != MyRun.nowModel.CamName)
+            else
             {
                 //获取该相机关联图片的路径，如无此路径则创建文件夹用于保存相机关联图片
                 localImagePath = MyRun.appPath + "\\model\\" + MyRun.model.modelName + "\\" + MyRun.nowModel.CamName;
@@ -213,10 +218,7 @@ namespace LSVisionMod.View.模板步骤
             MyRun.CreateModelWindow.SelectChooseModelTypeWindow();
         }
 
-        private void 匹配定位_Enter(object sender, EventArgs e)
-        {
-            RelateCam();
-        }
+
 
         private void btn返回_Click(object sender, EventArgs e)
         {
@@ -244,16 +246,80 @@ namespace LSVisionMod.View.模板步骤
 
         private void btn获取本地图片_Click(object sender, EventArgs e)
         {
-            string ImagePath = ImagesPath[count++];
-            halconFun.ReadImage(ImagePath);
-            halconFun.ShowImage();
-            if (matchingfun.inRegion != null)
+            if(ImagesPath.Length > 0)
             {
-                halconFun.SetRegion(matchingfun.inRegion);
+                string ImagePath = ImagesPath[count++];
+                halconFun.ReadImage(ImagePath);
+                halconFun.ShowImage();
+                if (matchingfun != null && matchingfun.inRegion != null)
+                {
+                    halconFun.SetRegion(matchingfun.inRegion);
+                }
+                halconFun.SetRegionFillMode(HalconFun.RegionFillMode.Margin);
+                halconFun.ShowRegion(Color.Red);
+                count %= ImagesPath.Length;
             }
-            halconFun.SetRegionFillMode(HalconFun.RegionFillMode.Margin);
-            halconFun.ShowRegion(Color.Red);
-            count %= ImagesPath.Length;
+        }
+
+        private void txt定位模板名称_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (txt定位模板名称.Text == "")
+            {
+                grp图片获取.Enabled = false;
+                grp选择定位区域.Enabled = false;
+                grp选择定位区域.Enabled = false;
+                grp定位模板创建.Enabled = false;
+                grp定位模板测试.Enabled = false;
+                btn保存设置.Enabled = false;
+            }
+            else
+            {
+                grp图片获取.Enabled = true;
+
+                if (halconFun.m_hoImage is null)
+                {
+                    grp选择定位区域.Enabled = false;
+                }
+                else
+                {
+                    grp选择定位区域.Enabled = true;
+                }
+                if (halconFun.m_hoRegion is null)
+                {
+                    grp定位模板创建.Enabled = false;
+                }
+                else
+                {
+                    grp定位模板创建.Enabled = true;
+                }
+
+
+                if (matchingfun is null)
+                {
+                    grp定位模板测试.Enabled = false;
+                    btn保存设置.Enabled = false;
+                }
+                else
+                {
+                    grp定位模板测试.Enabled = true;
+                    btn保存设置.Enabled = true;
+                }
+            }
+            
+        }
+        private void 匹配定位_Enter(object sender, EventArgs e)
+        {
+            RelateCam();
+            timer1.Start();
+        }
+        private void 匹配定位_Leave(object sender, EventArgs e)
+        {
+            timer1.Stop();
         }
     }
 }

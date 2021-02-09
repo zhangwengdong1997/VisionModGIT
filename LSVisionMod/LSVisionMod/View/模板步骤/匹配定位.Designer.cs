@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grp选择定位区域 = new System.Windows.Forms.GroupBox();
             this.rdo多边形区域 = new System.Windows.Forms.RadioButton();
             this.rdo圆形区域 = new System.Windows.Forms.RadioButton();
             this.rdo矩形区域 = new System.Windows.Forms.RadioButton();
-            this.cmb定位模板类型 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btn新建区域 = new System.Windows.Forms.Button();
+            this.btn撤销上一步 = new System.Windows.Forms.Button();
             this.btn添加区域 = new System.Windows.Forms.Button();
             this.btn减少区域 = new System.Windows.Forms.Button();
+            this.cmb定位模板类型 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn创建模板 = new System.Windows.Forms.Button();
-            this.btn撤销上一步 = new System.Windows.Forms.Button();
             this.btn测试模板 = new System.Windows.Forms.Button();
             this.lab模板匹配率 = new System.Windows.Forms.Label();
             this.btn保存设置 = new System.Windows.Forms.Button();
@@ -48,18 +49,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lab当前相机 = new System.Windows.Forms.Label();
             this.btn返回 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.grp定位模板初始化 = new System.Windows.Forms.GroupBox();
+            this.grp图片获取 = new System.Windows.Forms.GroupBox();
             this.btn获取相机图片 = new System.Windows.Forms.Button();
             this.btn获取本地图片 = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.grp定位模板创建 = new System.Windows.Forms.GroupBox();
+            this.grp定位模板测试 = new System.Windows.Forms.GroupBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.grp选择定位区域.SuspendLayout();
+            this.grp定位模板初始化.SuspendLayout();
+            this.grp图片获取.SuspendLayout();
+            this.grp定位模板创建.SuspendLayout();
+            this.grp定位模板测试.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -71,22 +73,22 @@
             this.pictureBox1.TabIndex = 51;
             this.pictureBox1.TabStop = false;
             // 
-            // groupBox1
+            // grp选择定位区域
             // 
-            this.groupBox1.Controls.Add(this.rdo多边形区域);
-            this.groupBox1.Controls.Add(this.rdo圆形区域);
-            this.groupBox1.Controls.Add(this.rdo矩形区域);
-            this.groupBox1.Controls.Add(this.btn新建区域);
-            this.groupBox1.Controls.Add(this.btn撤销上一步);
-            this.groupBox1.Controls.Add(this.btn添加区域);
-            this.groupBox1.Controls.Add(this.btn减少区域);
-            this.groupBox1.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.groupBox1.Location = new System.Drawing.Point(815, 296);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(576, 126);
-            this.groupBox1.TabIndex = 57;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "选择定位区域";
+            this.grp选择定位区域.Controls.Add(this.rdo多边形区域);
+            this.grp选择定位区域.Controls.Add(this.rdo圆形区域);
+            this.grp选择定位区域.Controls.Add(this.rdo矩形区域);
+            this.grp选择定位区域.Controls.Add(this.btn新建区域);
+            this.grp选择定位区域.Controls.Add(this.btn撤销上一步);
+            this.grp选择定位区域.Controls.Add(this.btn添加区域);
+            this.grp选择定位区域.Controls.Add(this.btn减少区域);
+            this.grp选择定位区域.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.grp选择定位区域.Location = new System.Drawing.Point(815, 296);
+            this.grp选择定位区域.Name = "grp选择定位区域";
+            this.grp选择定位区域.Size = new System.Drawing.Size(576, 126);
+            this.grp选择定位区域.TabIndex = 57;
+            this.grp选择定位区域.TabStop = false;
+            this.grp选择定位区域.Text = "选择定位区域";
             // 
             // rdo多边形区域
             // 
@@ -120,25 +122,6 @@
             this.rdo矩形区域.Text = "矩形区域";
             this.rdo矩形区域.UseVisualStyleBackColor = true;
             // 
-            // cmb定位模板类型
-            // 
-            this.cmb定位模板类型.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.cmb定位模板类型.FormattingEnabled = true;
-            this.cmb定位模板类型.Location = new System.Drawing.Point(195, 76);
-            this.cmb定位模板类型.Name = "cmb定位模板类型";
-            this.cmb定位模板类型.Size = new System.Drawing.Size(223, 26);
-            this.cmb定位模板类型.TabIndex = 62;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.label1.Location = new System.Drawing.Point(74, 79);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 18);
-            this.label1.TabIndex = 63;
-            this.label1.Text = "定位模板类型";
-            // 
             // btn新建区域
             // 
             this.btn新建区域.Font = new System.Drawing.Font("华文楷体", 12F);
@@ -149,6 +132,17 @@
             this.btn新建区域.Text = "新建区域";
             this.btn新建区域.UseVisualStyleBackColor = true;
             this.btn新建区域.Click += new System.EventHandler(this.btn新建区域_Click);
+            // 
+            // btn撤销上一步
+            // 
+            this.btn撤销上一步.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.btn撤销上一步.Location = new System.Drawing.Point(435, 68);
+            this.btn撤销上一步.Name = "btn撤销上一步";
+            this.btn撤销上一步.Size = new System.Drawing.Size(100, 40);
+            this.btn撤销上一步.TabIndex = 77;
+            this.btn撤销上一步.Text = "撤销上一步";
+            this.btn撤销上一步.UseVisualStyleBackColor = true;
+            this.btn撤销上一步.Click += new System.EventHandler(this.btn撤销上一步_Click);
             // 
             // btn添加区域
             // 
@@ -172,6 +166,25 @@
             this.btn减少区域.UseVisualStyleBackColor = true;
             this.btn减少区域.Click += new System.EventHandler(this.btn减少区域_Click);
             // 
+            // cmb定位模板类型
+            // 
+            this.cmb定位模板类型.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.cmb定位模板类型.FormattingEnabled = true;
+            this.cmb定位模板类型.Location = new System.Drawing.Point(197, 78);
+            this.cmb定位模板类型.Name = "cmb定位模板类型";
+            this.cmb定位模板类型.Size = new System.Drawing.Size(223, 26);
+            this.cmb定位模板类型.TabIndex = 62;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.label1.Location = new System.Drawing.Point(76, 81);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 18);
+            this.label1.TabIndex = 63;
+            this.label1.Text = "定位模板类型";
+            // 
             // btn创建模板
             // 
             this.btn创建模板.Font = new System.Drawing.Font("华文楷体", 12F);
@@ -182,17 +195,6 @@
             this.btn创建模板.Text = "创建模板";
             this.btn创建模板.UseVisualStyleBackColor = true;
             this.btn创建模板.Click += new System.EventHandler(this.btn创建模板_Click);
-            // 
-            // btn撤销上一步
-            // 
-            this.btn撤销上一步.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.btn撤销上一步.Location = new System.Drawing.Point(435, 68);
-            this.btn撤销上一步.Name = "btn撤销上一步";
-            this.btn撤销上一步.Size = new System.Drawing.Size(100, 40);
-            this.btn撤销上一步.TabIndex = 77;
-            this.btn撤销上一步.Text = "撤销上一步";
-            this.btn撤销上一步.UseVisualStyleBackColor = true;
-            this.btn撤销上一步.Click += new System.EventHandler(this.btn撤销上一步_Click);
             // 
             // btn测试模板
             // 
@@ -239,16 +241,17 @@
             // txt定位模板名称
             // 
             this.txt定位模板名称.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.txt定位模板名称.Location = new System.Drawing.Point(195, 27);
+            this.txt定位模板名称.Location = new System.Drawing.Point(197, 29);
             this.txt定位模板名称.Name = "txt定位模板名称";
             this.txt定位模板名称.Size = new System.Drawing.Size(223, 28);
             this.txt定位模板名称.TabIndex = 88;
+            this.txt定位模板名称.TextChanged += new System.EventHandler(this.txt定位模板名称_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.label3.Location = new System.Drawing.Point(74, 30);
+            this.label3.Location = new System.Drawing.Point(76, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(104, 18);
             this.label3.TabIndex = 87;
@@ -275,33 +278,33 @@
             this.btn返回.UseVisualStyleBackColor = true;
             this.btn返回.Click += new System.EventHandler(this.btn返回_Click);
             // 
-            // groupBox2
+            // grp定位模板初始化
             // 
-            this.groupBox2.Controls.Add(this.txt定位模板名称);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.cmb定位模板类型);
-            this.groupBox2.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.groupBox2.Location = new System.Drawing.Point(815, 20);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(576, 125);
-            this.groupBox2.TabIndex = 91;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "定位模板初始化";
+            this.grp定位模板初始化.Controls.Add(this.txt定位模板名称);
+            this.grp定位模板初始化.Controls.Add(this.label1);
+            this.grp定位模板初始化.Controls.Add(this.label3);
+            this.grp定位模板初始化.Controls.Add(this.cmb定位模板类型);
+            this.grp定位模板初始化.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.grp定位模板初始化.Location = new System.Drawing.Point(815, 20);
+            this.grp定位模板初始化.Name = "grp定位模板初始化";
+            this.grp定位模板初始化.Size = new System.Drawing.Size(576, 125);
+            this.grp定位模板初始化.TabIndex = 91;
+            this.grp定位模板初始化.TabStop = false;
+            this.grp定位模板初始化.Text = "定位模板初始化";
             // 
-            // groupBox3
+            // grp图片获取
             // 
-            this.groupBox3.Controls.Add(this.btn获取相机图片);
-            this.groupBox3.Controls.Add(this.btn获取本地图片);
-            this.groupBox3.Controls.Add(this.lab当前相机);
-            this.groupBox3.Controls.Add(this.lab关联图片数量);
-            this.groupBox3.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.groupBox3.Location = new System.Drawing.Point(815, 158);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(576, 132);
-            this.groupBox3.TabIndex = 92;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "图片获取";
+            this.grp图片获取.Controls.Add(this.btn获取相机图片);
+            this.grp图片获取.Controls.Add(this.btn获取本地图片);
+            this.grp图片获取.Controls.Add(this.lab当前相机);
+            this.grp图片获取.Controls.Add(this.lab关联图片数量);
+            this.grp图片获取.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.grp图片获取.Location = new System.Drawing.Point(815, 158);
+            this.grp图片获取.Name = "grp图片获取";
+            this.grp图片获取.Size = new System.Drawing.Size(576, 132);
+            this.grp图片获取.TabIndex = 92;
+            this.grp图片获取.TabStop = false;
+            this.grp图片获取.Text = "图片获取";
             // 
             // btn获取相机图片
             // 
@@ -325,55 +328,61 @@
             this.btn获取本地图片.UseVisualStyleBackColor = true;
             this.btn获取本地图片.Click += new System.EventHandler(this.btn获取本地图片_Click);
             // 
-            // groupBox4
+            // grp定位模板创建
             // 
-            this.groupBox4.Controls.Add(this.btn创建模板);
-            this.groupBox4.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.groupBox4.Location = new System.Drawing.Point(815, 439);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(209, 100);
-            this.groupBox4.TabIndex = 93;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "定位模板创建";
+            this.grp定位模板创建.Controls.Add(this.btn创建模板);
+            this.grp定位模板创建.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.grp定位模板创建.Location = new System.Drawing.Point(815, 449);
+            this.grp定位模板创建.Name = "grp定位模板创建";
+            this.grp定位模板创建.Size = new System.Drawing.Size(209, 100);
+            this.grp定位模板创建.TabIndex = 93;
+            this.grp定位模板创建.TabStop = false;
+            this.grp定位模板创建.Text = "定位模板创建";
             // 
-            // groupBox5
+            // grp定位模板测试
             // 
-            this.groupBox5.Controls.Add(this.btn测试模板);
-            this.groupBox5.Controls.Add(this.lab模板匹配率);
-            this.groupBox5.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.groupBox5.Location = new System.Drawing.Point(1046, 439);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(345, 100);
-            this.groupBox5.TabIndex = 94;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "定位模板测试";
+            this.grp定位模板测试.Controls.Add(this.btn测试模板);
+            this.grp定位模板测试.Controls.Add(this.lab模板匹配率);
+            this.grp定位模板测试.Font = new System.Drawing.Font("华文楷体", 12F);
+            this.grp定位模板测试.Location = new System.Drawing.Point(1046, 449);
+            this.grp定位模板测试.Name = "grp定位模板测试";
+            this.grp定位模板测试.Size = new System.Drawing.Size(345, 100);
+            this.grp定位模板测试.TabIndex = 94;
+            this.grp定位模板测试.TabStop = false;
+            this.grp定位模板测试.Text = "定位模板测试";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 50;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // 匹配定位
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.grp定位模板测试);
+            this.Controls.Add(this.grp定位模板创建);
+            this.Controls.Add(this.grp图片获取);
+            this.Controls.Add(this.grp定位模板初始化);
             this.Controls.Add(this.btn返回);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn保存设置);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grp选择定位区域);
             this.Name = "匹配定位";
             this.Size = new System.Drawing.Size(1456, 741);
             this.Load += new System.EventHandler(this.匹配定位_Load);
             this.Enter += new System.EventHandler(this.匹配定位_Enter);
+            this.Leave += new System.EventHandler(this.匹配定位_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.grp选择定位区域.ResumeLayout(false);
+            this.grp选择定位区域.PerformLayout();
+            this.grp定位模板初始化.ResumeLayout(false);
+            this.grp定位模板初始化.PerformLayout();
+            this.grp图片获取.ResumeLayout(false);
+            this.grp图片获取.PerformLayout();
+            this.grp定位模板创建.ResumeLayout(false);
+            this.grp定位模板测试.ResumeLayout(false);
+            this.grp定位模板测试.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -381,7 +390,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grp选择定位区域;
         private System.Windows.Forms.RadioButton rdo多边形区域;
         private System.Windows.Forms.RadioButton rdo圆形区域;
         private System.Windows.Forms.RadioButton rdo矩形区域;
@@ -400,11 +409,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lab当前相机;
         private System.Windows.Forms.Button btn返回;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox grp定位模板初始化;
+        private System.Windows.Forms.GroupBox grp图片获取;
         private System.Windows.Forms.Button btn获取相机图片;
         private System.Windows.Forms.Button btn获取本地图片;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox grp定位模板创建;
+        private System.Windows.Forms.GroupBox grp定位模板测试;
+        private System.Windows.Forms.Timer timer1;
     }
 }

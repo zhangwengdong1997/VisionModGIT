@@ -18,7 +18,7 @@ namespace LSVisionMod.Common
     class MyRun
     {
         public static ProductModel model;
-        public static 新建模板 CreateModelWindow;
+        public static 模板配置 CreateModelWindow;
         private static HKCameraCltr cameraCltr;
         public static NowModel nowModel = new NowModel();
 
@@ -284,9 +284,9 @@ namespace LSVisionMod.Common
         {
             MatchingTypes = new List<string>
             {
-                "无模板定位",
                 "形状模板定位",
-                "可变形模板定位"
+                "可变形模板定位",
+                "无模板定位"
             };
 
             return true;

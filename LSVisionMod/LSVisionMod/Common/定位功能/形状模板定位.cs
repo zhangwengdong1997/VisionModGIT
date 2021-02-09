@@ -49,18 +49,19 @@ namespace LSVisionMod.Common
 
         public override int Find(HObject inImage, out HObject outImage)
         {
-            return FindModel(inImage, inRegion, minScore, outModelID, out outImage, out _);
+            return FindModel(inImage, inRegion, minScore, outModelID, out outImage, out _, out outContour);
         }
 
         public override int Find(HObject inImage, out HObject outImage, out double Score)
         {
-            return FindModel(inImage, inRegion, minScore, outModelID, out outImage, out Score);
+            return FindModel(inImage, inRegion, minScore, outModelID, out outImage, out Score, out outContour);
         }
 
-        public int FindModel(HObject ho_inImage, HObject ho_inRegion, double MinScore, HTuple hv_inModelID, out HObject ho_outRectifiedImage, out double Score)
+        public int FindModel(HObject ho_inImage, HObject ho_inRegion, double MinScore, HTuple hv_inModelID, out HObject ho_outRectifiedImage, out double Score, out HObject ho_outContour)
         {
             int nRet = 1;
             Score = 0;
+            ho_outContour = null;
             HOperatorSet.AreaCenter(ho_inRegion, out _, out HTuple hv_RefRow, out HTuple hv_RefColumn);
             if(MinScore >= 1 || MinScore <= 0)
             {
@@ -83,6 +84,11 @@ namespace LSVisionMod.Common
                 HOperatorSet.HomMat2dTranslate(hv_AlignmentHomMat2D, -hv_RefRow, -hv_RefColumn, out hv_AlignmentHomMat2D);
                 HOperatorSet.HomMat2dRotate(hv_AlignmentHomMat2D, hv_Angle.TupleSelect(0), 0, 0, out hv_AlignmentHomMat2D);
                 HOperatorSet.HomMat2dTranslate(hv_AlignmentHomMat2D, hv_Row.TupleSelect(0), hv_Column.TupleSelect(0), out homMat2D);
+
+
+                HOperatorSet.GetShapeModelContours(out HObject ho_ModelContours, hv_inModelID, 1);
+                HOperatorSet.VectorAngleToRigid(0, 0, 0, hv_RefRow, hv_RefColumn, 0, out HTuple hv_HomMat2D);
+                HOperatorSet.AffineTransContourXld(ho_ModelContours, out ho_outContour, hv_HomMat2D);
             }
             else
             {

@@ -35,6 +35,7 @@ namespace LSVisionMod.View.模板步骤
         {
             //关联Halcon窗口
             halconFun.SetWindowHandle(pictureBox1);
+            halconFun.SetLineWidth(3);
             //获取可用的检测功能
             TestItemStep.GetTestItemTypeList(out List<string> testItemTypes);
             cmb选择检测项.DataSource = testItemTypes;
@@ -47,7 +48,7 @@ namespace LSVisionMod.View.模板步骤
             {
                 return;
             }
-            if (camName != MyRun.nowModel.CamName)
+            else
             {
                 //获取该相机关联图片的路径，如无此路径则创建文件夹用于保存相机关联图片
                 localImagePath = MyRun.appPath + "\\model\\" + MyRun.model.modelName + "\\" + MyRun.nowModel.CamName;
@@ -115,11 +116,7 @@ namespace LSVisionMod.View.模板步骤
             count %= ImagesPath.Length;
         }
 
-        private void 检测项添加_Enter(object sender, EventArgs e)
-        {
-            RelateCam();
-            RelateMatch();
-        }
+       
 
 
 
@@ -133,6 +130,17 @@ namespace LSVisionMod.View.模板步骤
                 return;
             }
             ParameterSetControl.Find(halconFun.m_hoImage, parameters, out outMessage);
+            halconFun.ShowImage();
+            halconFun.SetRegionFillMode(HalconFun.RegionFillMode.Margin);
+            
+            if (ParameterSetControl.isOK)
+            {
+                halconFun.ShowRegion(ParameterSetControl.hROI, Color.Green);
+            }else
+            {
+                halconFun.ShowRegion(ParameterSetControl.hROI, Color.Red);
+            }
+            
             txt检测结果.Text = outMessage;
         }
 
@@ -209,5 +217,57 @@ namespace LSVisionMod.View.模板步骤
             ho_Image.Dispose();
         }
 
+        private void txt检测项名称_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (txt检测项名称.Text == "")
+            {
+                grp图片获取.Enabled = false;
+                grp检测项参数配置.Enabled = false;
+                grp测试结果.Enabled = false;
+                btn测试.Enabled = false;
+                btn保存设置.Enabled = false;
+            }
+            else
+            {
+                grp图片获取.Enabled = true;
+                if (halconFun.m_hoImage is null)
+                {
+                    grp检测项参数配置.Enabled = false;
+                }
+                else
+                {
+                    grp检测项参数配置.Enabled = true;
+                    
+                }
+                if (!ParameterSetControl.HaveSet())
+                {
+                    grp测试结果.Enabled = false;
+                    btn保存设置.Enabled = false;
+                }
+                else
+                {
+                    grp测试结果.Enabled = true;
+                    btn测试.Enabled = true;
+                    btn保存设置.Enabled = true;
+                }
+            }
+        }
+
+        private void 检测项添加_Enter(object sender, EventArgs e)
+        {
+            RelateCam();
+            RelateMatch();
+            timer1.Start();
+        }
+        private void 检测项添加_Leave(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        
     }
 }

@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "视觉检测模块", "视觉检测模块", "{1C6383D7-9A8A-49E8-9D50-2B7577C29842}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "相机模块", "相机模块", "{C665B614-352C-40A3-B43D-1BDBA97B8D21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraModule", "CameraModule\CameraModule.csproj", "{92CF3ADA-2BD4-4B9F-B3B3-70006A9467BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraBase", "CameraBase\CameraBase.csproj", "{3EDF3B0B-5C63-4E84-A50D-A07D6D51A0FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaslerCamera", "BaslerCamera\BaslerCamera.csproj", "{7D7893F9-823E-47BA-890D-D1F9707BB55F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikVisionCamera", "HikVisionCamera\HikVisionCamera.csproj", "{393219D2-7CDA-47BA-95F2-F56398E1BA20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "模块测试", "模块测试", "{1B24911D-2BB5-4C2A-9B31-663E920D5B77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CamTest1", "CamTest1\CamTest1.csproj", "{EDCE5B87-51B1-4E6D-A04C-C8E7C6999B64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionModule", "VisionModule\VisionModule.csproj", "{D9BDFF99-8EA2-4087-968F-23A175B94EBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92CF3ADA-2BD4-4B9F-B3B3-70006A9467BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92CF3ADA-2BD4-4B9F-B3B3-70006A9467BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92CF3ADA-2BD4-4B9F-B3B3-70006A9467BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92CF3ADA-2BD4-4B9F-B3B3-70006A9467BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EDF3B0B-5C63-4E84-A50D-A07D6D51A0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EDF3B0B-5C63-4E84-A50D-A07D6D51A0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EDF3B0B-5C63-4E84-A50D-A07D6D51A0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EDF3B0B-5C63-4E84-A50D-A07D6D51A0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7893F9-823E-47BA-890D-D1F9707BB55F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7893F9-823E-47BA-890D-D1F9707BB55F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7893F9-823E-47BA-890D-D1F9707BB55F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7893F9-823E-47BA-890D-D1F9707BB55F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393219D2-7CDA-47BA-95F2-F56398E1BA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393219D2-7CDA-47BA-95F2-F56398E1BA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393219D2-7CDA-47BA-95F2-F56398E1BA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393219D2-7CDA-47BA-95F2-F56398E1BA20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDCE5B87-51B1-4E6D-A04C-C8E7C6999B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDCE5B87-51B1-4E6D-A04C-C8E7C6999B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDCE5B87-51B1-4E6D-A04C-C8E7C6999B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDCE5B87-51B1-4E6D-A04C-C8E7C6999B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9BDFF99-8EA2-4087-968F-23A175B94EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9BDFF99-8EA2-4087-968F-23A175B94EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9BDFF99-8EA2-4087-968F-23A175B94EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9BDFF99-8EA2-4087-968F-23A175B94EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{92CF3ADA-2BD4-4B9F-B3B3-70006A9467BB} = {C665B614-352C-40A3-B43D-1BDBA97B8D21}
+		{3EDF3B0B-5C63-4E84-A50D-A07D6D51A0FC} = {C665B614-352C-40A3-B43D-1BDBA97B8D21}
+		{7D7893F9-823E-47BA-890D-D1F9707BB55F} = {C665B614-352C-40A3-B43D-1BDBA97B8D21}
+		{393219D2-7CDA-47BA-95F2-F56398E1BA20} = {C665B614-352C-40A3-B43D-1BDBA97B8D21}
+		{EDCE5B87-51B1-4E6D-A04C-C8E7C6999B64} = {1B24911D-2BB5-4C2A-9B31-663E920D5B77}
+		{D9BDFF99-8EA2-4087-968F-23A175B94EBF} = {1C6383D7-9A8A-49E8-9D50-2B7577C29842}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B2DFE0D-57C7-4BF3-89F4-DE4800BA19FD}
+	EndGlobalSection
+EndGlobal

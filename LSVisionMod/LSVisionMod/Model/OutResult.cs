@@ -14,7 +14,7 @@ namespace LSVisionMod.Model
         public string TestItemName { get; set; }
         public string CamName { get; set; }
         public bool IsOK { get; set; }
-        public string ResultMessage { get; set; }
+        public string ResultMessage { get; set; }//字典
         public OutImage OriginalImage { get; set; }
         public OutImage EffectImage { get; set; }
 

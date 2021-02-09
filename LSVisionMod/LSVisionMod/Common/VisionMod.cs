@@ -29,8 +29,14 @@ namespace LSVisionMod.Common
                 StrErrorMsg = MyRun.StrErrorMsg;
                 return false;
             }
+            MyRun.ModelNumberChangeEvent += MyRun_ModelNumberChangeEvent;
 
             return true;
+        }
+
+        private static void MyRun_ModelNumberChangeEvent(object sender, EventArgs e)
+        {
+            CreateNewModelFinishEvent(null, "");
         }
         #endregion
 
@@ -508,7 +514,7 @@ namespace LSVisionMod.Common
                                 matchHomMat2D.AddOrUpdate(matchingFun.matching.Name, matchingFun.homMat2D, (k, v) => v = matchingFun.homMat2D);
                             }
 
-                            SoftwareOnceEvent?.Invoke(null, new OutImage(matchingFun.matching.CamName, camImage));
+                            SoftwareOnceEvent?.BeginInvoke(null, new OutImage(matchingFun.matching.CamName, camImage), null, null);
                         }
                     });
 
@@ -555,7 +561,7 @@ namespace LSVisionMod.Common
                                     OriginalImage = new OutImage(testItem.camName, inImage),
                                     EffectImage = new OutImage(testItem.camName, resultImage)
                                 };
-                                DetectionOnceEvent?.Invoke(null, outResult);
+                                DetectionOnceEvent?.BeginInvoke(null, outResult, null, null);
                                 OutResults.Add(outResult);
                             }
 
@@ -839,7 +845,7 @@ namespace LSVisionMod.Common
         /// <returns></returns>
         public static bool AddProductModel()
         {
-            新建模板 createModelWindow = new 新建模板();
+            模板配置 createModelWindow = new 模板配置();
             createModelWindow.Show();
             return true;
         }
@@ -853,11 +859,13 @@ namespace LSVisionMod.Common
         /// <returns></returns>
         public static bool AddProductModel(string modelName)
         {
-            新建模板 createModelWindow = new 新建模板();
+            模板配置 createModelWindow = new 模板配置();
             createModelWindow.SetModelName(modelName);
             createModelWindow.Show();
             return true;
         }
+
+
 
         /// <summary>
         /// 添加型号模板
@@ -891,10 +899,10 @@ namespace LSVisionMod.Common
         public static bool EditProductModel(string modelName)
         {
             //功能还未实现
-            新建模板 createModelWindow = new 新建模板();
-            createModelWindow.SetModelName(modelName);
-            createModelWindow.Show();
-            createModelWindow.InitChooseModelTypeWindow(modelName);
+            模板配置 editModelWindow = new 模板配置();
+            editModelWindow.SetModelName(modelName);
+            editModelWindow.Show();
+            editModelWindow.InitChooseModelTypeWindow(modelName);
             return true;
         }
         /// <summary>

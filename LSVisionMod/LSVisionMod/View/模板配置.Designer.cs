@@ -1,6 +1,6 @@
 ﻿namespace LSVisionMod.View
 {
-    partial class 新建模板
+    partial class 模板配置
     {
         /// <summary>
         /// Required designer variable.

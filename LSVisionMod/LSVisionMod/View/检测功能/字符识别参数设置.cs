@@ -20,10 +20,12 @@ namespace LSVisionMod.View.检测功能
         HTuple hWindow; 
         HObject hImage;
         HObject hROI;
+        bool isOK;
 
         HTuple I检测参数设置.hWindow { get => hWindow; set => hWindow = value; }
         HObject I检测参数设置.hImage { get => hImage; set => hImage = value; }
         HObject I检测参数设置.hROI { get => hROI; set => hROI = value; }
+        bool I检测参数设置.isOK { get => isOK; set => isOK = value; }
 
         public 字符识别参数设置()
         {
@@ -115,8 +117,9 @@ namespace LSVisionMod.View.检测功能
             row2 = lists[2];
             column2 = lists[3];
             HOperatorSet.GenRectangle1(out HObject ho_inRegion, row1, column1, row2, column2);
-            myOcrSplit(inImage, ho_inRegion, ocrClassifier, standardText, charCount, 0, lightOnDark, out HTuple hv_Word);
+            int nRet = myOcrSplit(inImage, ho_inRegion, ocrClassifier, standardText, charCount, 0, lightOnDark, out HTuple hv_Word);
             outMessage = hv_Word.S;
+            isOK = nRet == 0 ? true : false;
         }
 
         public string GetName()
@@ -531,22 +534,22 @@ namespace LSVisionMod.View.检测功能
         {
             if (cmb选择字体库.SelectedIndex == -1)
             {
-                MessageBox.Show("请选择字体库");
+                //MessageBox.Show("请选择字体库");
                 return false;
             }
             if (txt标准文本.Text == "")
             {
-                MessageBox.Show("请输入识别目标的标准文本");
+                //MessageBox.Show("请输入识别目标的标准文本");
                 return false;
             }
             if (hImage == null)
             {
-                MessageBox.Show("请获取图片");
+                //MessageBox.Show("请获取图片");
                 return false;
             }
             if (hROI is null)
             {
-                MessageBox.Show("请选择识别区域");
+                //MessageBox.Show("请选择识别区域");
                 return false;
             }
             return true;

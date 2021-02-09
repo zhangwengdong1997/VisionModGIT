@@ -34,10 +34,10 @@ namespace test
         {
             VisionMod.Connect();
 
-            Thread.Sleep(1000);
-            //VisionMod.HardMode();
             VisionMod.GetProductModelList(out List<ProductModel> productModels);
-            //VisionMod.GetAllTemplateImage("123", out List<Bitmap> templateImages);
+            for (int i = 0; i < productModels.Count; i++)
+                comboBox1.Items.Add(productModels[i].modelName);
+
             VisionMod.ErrorEvent += VisionMod_ErrorEvent;
 
         }
@@ -63,7 +63,8 @@ namespace test
 
         private void button2_Click(object sender, EventArgs e)
         {
-            VisionMod.EditProductModel("1234");
+            string modelName = comboBox1.Text;
+            VisionMod.EditProductModel(modelName);
         }
     }
 }

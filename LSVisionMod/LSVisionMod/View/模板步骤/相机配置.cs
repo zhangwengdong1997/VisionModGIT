@@ -12,6 +12,7 @@ using System.IO;
 using LSVisionMod.Common.模板步骤;
 using LSVisionMod.Model;
 using System.Threading;
+using System.Diagnostics;
 
 namespace LSVisionMod.View.模板步骤
 {
@@ -45,16 +46,16 @@ namespace LSVisionMod.View.模板步骤
                 cmb相机列表.Text = "noCam";
                 camName = "noCam";
                 lab选择相机提示.Text = "无相机连接";
+                lab相机曝光值提示.Text = "";
                 InitImagesPaths();
             }
             else
             {
                 lab选择相机提示.Text = "";
+                lab相机曝光值提示.Text = "";
             }
             CamStep.ReconnectCamEvent += CamStep_ReconnectCamEvent;
         }
-
-        
 
         private void cmb相机列表_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -65,13 +66,25 @@ namespace LSVisionMod.View.模板步骤
             InitImagesPaths();
         }
 
+
+        private void cmb相机列表_TextChanged(object sender, EventArgs e)
+        {
+            camName = cmb相机列表.Text;
+            var cam = MyRun.model.cams.Find(x => x.CamName == camName);
+            if (cam != null)
+            {
+                lab选择相机提示.Text = "相机" + camName + "已存在";
+            }
+            
+        }
+
         private void InitImagesPaths()
         {
             //获取该相机关联图片的路径，如无此路径则创建文件夹用于保存相机关联图片
             localImagePath = MyRun.appPath + "\\model\\" + MyRun.model.modelName + "\\" + camName;
             txt样本图片保存路径.Text = localImagePath;
             ImagesPath = GetImagesPath(localImagePath);
-            count = 0;
+            
             //获取关联图片数量
             lab关联图片数量.Text = "关联图片数量:" + ImagesPath.Length.ToString();
         }
@@ -121,19 +134,21 @@ namespace LSVisionMod.View.模板步骤
         private void btn添加本地图片关联相机_Click(object sender, EventArgs e)
         {
             InitImagesPaths();
-            string ImagePath;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "JPEG文件|*.jpg*|BMP文件|*.bmp*";
             openFileDialog.RestoreDirectory = true;
+            openFileDialog.Multiselect = true;
 
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ImagePath = openFileDialog.FileName;
-                File.Copy(ImagePath, localImagePath + "\\" + openFileDialog.SafeFileName, true);
-                ImagesPath = GetImagesPath(localImagePath);
-                lab关联图片数量.Text = ImagesPath.Length.ToString();
+                for (int i = 0; i < openFileDialog.FileNames.Length; i++)
+                {
+                    string imagePath = openFileDialog.FileNames[i];
+                    File.Copy(imagePath, localImagePath + "\\" + openFileDialog.SafeFileNames[i], true);
+                }
             }
+            InitImagesPaths();
         }
 
         private void btn添加当前图片关联相机_Click(object sender, EventArgs e)
@@ -142,6 +157,7 @@ namespace LSVisionMod.View.模板步骤
             halconFun.WriteImage(localImagePath, DateTime.Now.ToString("HH-mm-ss") + ".jpg");
             ImagesPath = GetImagesPath(localImagePath);
             lab关联图片数量.Text = ImagesPath.Length.ToString();
+            InitImagesPaths();
         }
 
         private void btn获取图片_Click(object sender, EventArgs e)
@@ -154,6 +170,7 @@ namespace LSVisionMod.View.模板步骤
             else
             {
                 MessageBox.Show(MyRun.StrErrorMsg);
+                btn刷新相机连接.Visible = true;
             }
         }
 
@@ -197,18 +214,18 @@ namespace LSVisionMod.View.模板步骤
             
         }
 
-        private void cmb相机列表_TextChanged(object sender, EventArgs e)
-        {
-            camName = cmb相机列表.Text;
-        }
-
         private void btn显示样本图片_Click(object sender, EventArgs e)
         {
-            string ImagePath = ImagesPath[count++];
-            halconFun.ReadImage(ImagePath);
-            halconFun.ShowImage();
-
-            count %= ImagesPath.Length;
+            InitImagesPaths();
+            if (ImagesPath.Length > 0)
+            {
+                count %= ImagesPath.Length;
+                string ImagePath = ImagesPath[count++];
+                halconFun.ReadImage(ImagePath);
+                halconFun.ShowImage();
+                count %= ImagesPath.Length;
+            }
+            
         }
 
         private void btn刷新相机连接_Click(object sender, EventArgs e)
@@ -221,7 +238,6 @@ namespace LSVisionMod.View.模板步骤
             { IsBackground = true }.Start();
             Spinner等待重连.Visible = true;
         }
-
 
         private void CamStep_ReconnectCamEvent(object sender, EventArgs e)
         {
@@ -271,6 +287,51 @@ namespace LSVisionMod.View.模板步骤
                 { IsBackground = true }.Start();
                 
             }
+        }
+
+        private void txt样本图片保存路径_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Process.Start(txt样本图片保存路径.Text);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(cmb相机列表.Text == "" || cmb相机列表.Text == "noCam")
+            {
+                btn获取相机图片.Enabled = false;
+            }
+            else
+            {
+                btn获取相机图片.Enabled = true;
+            }
+
+            if(cmb相机列表.Text == "")
+            {
+                btn保存设置.Enabled = false;
+            }
+            else
+            {
+                btn保存设置.Enabled = true;
+            }
+            if(ImagesPath.Length == 0)
+            {
+                btn显示样本图片.Enabled = false;
+            }
+            else
+            {
+                btn显示样本图片.Enabled = true;
+            }
+
+        }
+        private void 相机配置_Enter(object sender, EventArgs e)
+        {
+            InitImagesPaths();
+            timer1.Start();
+        }
+
+        private void 相机配置_Leave(object sender, EventArgs e)
+        {
+            timer1.Stop();
         }
     }
 

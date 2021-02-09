@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSVisionMod", "LSVisionMod\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{3FF492FA-FB37-4613-AD8E-81071958F4E3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "相机模块", "相机模块", "{71CF1D45-675C-4E41-AE7F-E8204C52C3C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device", "..\..\MyDemo\CameraModule\CameraBase\Device.csproj", "{0967C28E-5778-48E3-A49A-49A020E836CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraModule", "..\..\MyDemo\CameraModule\CameraModule\CameraModule.csproj", "{8FE9D20D-3A94-4F93-A6A9-EDAA169D52F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikVisionCamera", "..\..\MyDemo\CameraModule\HikVisionCamera\HikVisionCamera.csproj", "{2A5C98FB-5E60-40CA-B276-BBA5F708F441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaslerCamera", "..\..\MyDemo\CameraModule\BaslerCamera\BaslerCamera.csproj", "{4A469E14-AECE-428C-A0E9-1E84C6A0B46B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +31,31 @@ Global
 		{3FF492FA-FB37-4613-AD8E-81071958F4E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FF492FA-FB37-4613-AD8E-81071958F4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FF492FA-FB37-4613-AD8E-81071958F4E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0967C28E-5778-48E3-A49A-49A020E836CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0967C28E-5778-48E3-A49A-49A020E836CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0967C28E-5778-48E3-A49A-49A020E836CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0967C28E-5778-48E3-A49A-49A020E836CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FE9D20D-3A94-4F93-A6A9-EDAA169D52F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FE9D20D-3A94-4F93-A6A9-EDAA169D52F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FE9D20D-3A94-4F93-A6A9-EDAA169D52F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FE9D20D-3A94-4F93-A6A9-EDAA169D52F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5C98FB-5E60-40CA-B276-BBA5F708F441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5C98FB-5E60-40CA-B276-BBA5F708F441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5C98FB-5E60-40CA-B276-BBA5F708F441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5C98FB-5E60-40CA-B276-BBA5F708F441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A469E14-AECE-428C-A0E9-1E84C6A0B46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A469E14-AECE-428C-A0E9-1E84C6A0B46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A469E14-AECE-428C-A0E9-1E84C6A0B46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A469E14-AECE-428C-A0E9-1E84C6A0B46B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0967C28E-5778-48E3-A49A-49A020E836CA} = {71CF1D45-675C-4E41-AE7F-E8204C52C3C7}
+		{8FE9D20D-3A94-4F93-A6A9-EDAA169D52F6} = {71CF1D45-675C-4E41-AE7F-E8204C52C3C7}
+		{2A5C98FB-5E60-40CA-B276-BBA5F708F441} = {71CF1D45-675C-4E41-AE7F-E8204C52C3C7}
+		{4A469E14-AECE-428C-A0E9-1E84C6A0B46B} = {71CF1D45-675C-4E41-AE7F-E8204C52C3C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51466222-6EC0-4053-8569-FA8F3A41D529}

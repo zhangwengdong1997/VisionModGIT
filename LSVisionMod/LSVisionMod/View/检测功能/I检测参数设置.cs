@@ -13,6 +13,7 @@ namespace LSVisionMod.View.检测功能
         HTuple hWindow { get; set; }
         HObject hImage { get; set; }
         HObject hROI { get; set; }
+        bool isOK { get; set; }
         void Save(ref List<Parameter> parameterList);
 
         string GetName();

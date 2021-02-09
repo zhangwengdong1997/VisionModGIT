@@ -13,13 +13,15 @@ using System.Windows.Forms;
 
 namespace LSVisionMod.View
 {
-    public partial class 新建模板 : MetroForm
+    public partial class 模板配置 : MetroForm
     {
         选择模板类型 ChooseModelTypeWindow = new 选择模板类型();
         相机配置 CamSetWindow = new 相机配置();
         匹配定位 MatchingWindow = new 匹配定位();
         检测项添加 TestItemAddWindow = new 检测项添加();
-        public 新建模板()
+
+        相机拼接 SplicingWindow = new 相机拼接();
+        public 模板配置()
         {
             InitializeComponent();
         }
@@ -62,6 +64,13 @@ namespace LSVisionMod.View
             ChooseModelTypeWindow.Focus();
         }
 
+        public void SelectSplicingWindow()
+        {
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(SplicingWindow);
+            SplicingWindow.Focus();
+        }
+
         public void AddCamNode(string camName)
         {
             ChooseModelTypeWindow.AddCamNode(camName);
@@ -80,6 +89,7 @@ namespace LSVisionMod.View
         public void InitChooseModelTypeWindow(string modelName)
         {
             ChooseModelTypeWindow.Init(modelName);
+            Text = "当前模板：" + modelName;
         }
         public void InitCamSetWindow(string camName)
         {

@@ -73,7 +73,7 @@
             // btn删除
             // 
             this.btn删除.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.btn删除.Location = new System.Drawing.Point(73, 312);
+            this.btn删除.Location = new System.Drawing.Point(73, 297);
             this.btn删除.Name = "btn删除";
             this.btn删除.Size = new System.Drawing.Size(195, 42);
             this.btn删除.TabIndex = 50;
@@ -84,7 +84,7 @@
             // btn添加检测项
             // 
             this.btn添加检测项.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.btn添加检测项.Location = new System.Drawing.Point(73, 212);
+            this.btn添加检测项.Location = new System.Drawing.Point(73, 213);
             this.btn添加检测项.Name = "btn添加检测项";
             this.btn添加检测项.Size = new System.Drawing.Size(195, 42);
             this.btn添加检测项.TabIndex = 49;
@@ -130,7 +130,7 @@
             // btn添加匹配定位
             // 
             this.btn添加匹配定位.Font = new System.Drawing.Font("华文楷体", 12F);
-            this.btn添加匹配定位.Location = new System.Drawing.Point(73, 126);
+            this.btn添加匹配定位.Location = new System.Drawing.Point(73, 129);
             this.btn添加匹配定位.Name = "btn添加匹配定位";
             this.btn添加匹配定位.Size = new System.Drawing.Size(195, 42);
             this.btn添加匹配定位.TabIndex = 53;
@@ -191,7 +191,7 @@
             this.grp编辑检测流程.Font = new System.Drawing.Font("华文楷体", 12F);
             this.grp编辑检测流程.Location = new System.Drawing.Point(1073, 108);
             this.grp编辑检测流程.Name = "grp编辑检测流程";
-            this.grp编辑检测流程.Size = new System.Drawing.Size(328, 389);
+            this.grp编辑检测流程.Size = new System.Drawing.Size(328, 381);
             this.grp编辑检测流程.TabIndex = 56;
             this.grp编辑检测流程.TabStop = false;
             this.grp编辑检测流程.Text = "编辑检测流程";

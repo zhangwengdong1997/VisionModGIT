@@ -34,13 +34,14 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(489, 92);
+            this.button1.Location = new System.Drawing.Point(563, 31);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(201, 85);
             this.button1.TabIndex = 0;
@@ -50,7 +51,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(489, 198);
+            this.button2.Location = new System.Drawing.Point(563, 139);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(201, 85);
             this.button2.TabIndex = 1;
@@ -69,7 +70,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(489, 322);
+            this.button3.Location = new System.Drawing.Point(563, 290);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(201, 43);
             this.button3.TabIndex = 3;
@@ -79,7 +80,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(489, 371);
+            this.button4.Location = new System.Drawing.Point(563, 374);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(201, 43);
             this.button4.TabIndex = 4;
@@ -96,11 +97,20 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(397, 139);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -124,6 +134,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

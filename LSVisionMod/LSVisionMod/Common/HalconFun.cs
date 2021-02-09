@@ -24,13 +24,15 @@ namespace LSVisionMod.Common
 
         public void AddHistoryRegions()
         {
-            m_historyRegions.Add(m_hoRegion);
+            if (m_hoRegion != null)
+            {
+                m_historyRegions.Add(new HObject(m_hoRegion));
+            }
         }
         public void BreakHistoryRegion()
         {
             if (m_historyRegions.Count > 0)
             {
-                HObjectEmpty(ref m_hoRegion);
                 m_hoRegion = m_historyRegions.Last();
                 m_historyRegions.RemoveAt(m_historyRegions.Count - 1);
 
@@ -247,6 +249,15 @@ namespace LSVisionMod.Common
             string colorH = "#" + rgba;
             HOperatorSet.SetColor(m_hvWindowHandle, colorH);
         }
+
+        public void SetLineWidth(int width)
+        {
+            if(width < 1)
+            {
+                width = 1;
+            }
+            HOperatorSet.SetLineWidth(m_hvWindowHandle, width);
+        }
         public void SetRegionFillMode(RegionFillMode fillMode)
         {
             switch (fillMode)
@@ -273,6 +284,7 @@ namespace LSVisionMod.Common
             SetRegionColor(color);
             ShowRegion();
         }
+        
         public void ShowRegion(HObject ho_Region, Color color)
         {
             if (ho_Region == null)

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AABCC0CE-BD84-45B7-80AF-AA173F35A8F6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>UI</RootNamespace>
+    <AssemblyName>UI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CSkin, Version=16.1.14.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\cskin.16.1.14.3\lib\net40\CSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>E:\力视工作项目\FCT系统软件\A软件界面\bin\Debug\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design">
+      <HintPath>E:\力视工作项目\FCT系统软件\A软件界面\bin\Debug\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts">
+      <HintPath>E:\力视工作项目\FCT系统软件\A软件界面\bin\Debug\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LogInForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogInForm.designer.cs">
+      <DependentUpon>LogInForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="功能窗体\数据管理\DataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="功能窗体\数据管理\DataPanel.Designer.cs">
+      <DependentUpon>DataPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="功能窗体\机型配置\ModelPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="功能窗体\机型配置\ModelPanel.Designer.cs">
+      <DependentUpon>ModelPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="功能窗体\测试运行\TestPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="功能窗体\测试运行\TestPanel.Designer.cs">
+      <DependentUpon>TestPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="功能窗体\用户管理\UsersManagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="功能窗体\用户管理\UsersManagePanel.Designer.cs">
+      <DependentUpon>UsersManagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="功能窗体\设备管理\DevicesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="功能窗体\设备管理\DevicesPanel.Designer.cs">
+      <DependentUpon>DevicesPanel.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="LogInForm.resx">
+      <DependentUpon>LogInForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="功能窗体\数据管理\DataPanel.resx">
+      <DependentUpon>DataPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="功能窗体\机型配置\ModelPanel.resx">
+      <DependentUpon>ModelPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="功能窗体\测试运行\TestPanel.resx">
+      <DependentUpon>TestPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="功能窗体\用户管理\UsersManagePanel.resx">
+      <DependentUpon>UsersManagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="功能窗体\设备管理\DevicesPanel.resx">
+      <DependentUpon>DevicesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="图片资源\云.png" />
+    <Content Include="图片资源\修改步骤.png" />
+    <Content Include="图片资源\修改用户.png" />
+    <Content Include="图片资源\修改用户2.png" />
+    <Content Include="图片资源\删除.png" />
+    <Content Include="图片资源\删除步骤.png" />
+    <Content Include="图片资源\力视.png" />
+    <Content Include="图片资源\力视科技.bmp" />
+    <Content Include="图片资源\历史记录.png" />
+    <Content Include="图片资源\叹号.png" />
+    <Content Include="图片资源\圆圈蓝2.png" />
+    <Content Include="图片资源\垃圾桶.png" />
+    <Content Include="图片资源\增加用户.png" />
+    <Content Include="图片资源\完成创建.png" />
+    <Content Include="图片资源\异常.png" />
+    <Content Include="图片资源\急停 1.png" />
+    <Content Include="图片资源\急停.png" />
+    <Content Include="图片资源\插入步骤.png" />
+    <Content Include="图片资源\搜索.png" />
+    <Content Include="图片资源\文件夹-实色.png" />
+    <Content Include="图片资源\断电 %281%29.png" />
+    <Content Include="图片资源\断电.png" />
+    <Content Include="图片资源\新增步骤.png" />
+    <Content Include="图片资源\新建机型.png" />
+    <Content Include="图片资源\方块蓝色.png" />
+    <Content Include="图片资源\未工作.png" />
+    <Content Include="图片资源\查看 眼睛 实时分析 2.png" />
+    <Content Include="图片资源\检测.png" />
+    <Content Include="图片资源\检测中.png" />
+    <Content Include="图片资源\正在登陆.gif" />
+    <Content Include="图片资源\添加.png" />
+    <Content Include="图片资源\用户-灰.png" />
+    <Content Include="图片资源\用户.png" />
+    <Content Include="图片资源\登入.jpg" />
+    <Content Include="图片资源\眼睛_可视.png" />
+    <Content Include="图片资源\确认.png" />
+    <Content Include="图片资源\管理机型.png" />
+    <Content Include="图片资源\设 置.png" />
+    <Content Include="图片资源\载入机型.png" />
+    <Content Include="图片资源\退出.png" />
+    <Content Include="图片资源\错误.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{dd4a51c5-57a8-4d09-a133-e1262981ddad}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\常用框架\Model.csproj">
+      <Project>{765a4c21-2d5e-4a33-9222-3fca3821711a}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -45,15 +45,24 @@ namespace LSVisionMod.View.模板步骤
 
         private void txt模板名称_TextChanged(object sender, EventArgs e)
         {
+            string modelName = txt模板名称.Text;
             Regex regex = new Regex(@"(?!((^(con)$)|(^(prn)$)|(^(aux)$)|(^(nul)$)|(^(com)[1-9]$)|(^(lpt)[1-9]$))|^\\s+|.*\\s$)(^[^\\\\\\/\\:\\*\\?\\\&;\\\\|]{1,255}$)");
-            if (!regex.IsMatch(txt模板名称.Text))
+            if (!regex.IsMatch(modelName))
             {
                 lab模板名称提示.Text = "模板名非法";
                 btn模板名确认.Enabled = false;
             }
             else
             {
-                lab模板名称提示.Text = "";
+                MyRun.GetProductModelNameList(out List<string> modelNameList);
+                if (modelNameList.Contains(modelName))
+                {
+                    lab模板名称提示.Text = "模板" + modelName + "已存在";
+                }
+                else
+                {
+                    lab模板名称提示.Text = "";
+                }
                 btn模板名确认.Enabled = true;
             }
         }
@@ -75,6 +84,9 @@ namespace LSVisionMod.View.模板步骤
             }
             MyRun.model.modelName = modelName;
 
+            MyRun.CreateModelWindow.Text = "当前模板：" + modelName;
+            MyRun.CreateModelWindow.Refresh();
+
             grp常用检测流程.Enabled = true;
             grp模板检测流程.Enabled = true;
             grp编辑检测流程.Enabled = true;
@@ -88,6 +100,10 @@ namespace LSVisionMod.View.模板步骤
         public bool Init(string modelName)
         {
             MyRun.model = MyRun.ReadModelJS(modelName);
+            if(MyRun.model == null)
+            {
+                return false;
+            }
             int Level0 = 0;
             foreach (var step in MyRun.model.ModelSteps.Steps)
             {
@@ -113,7 +129,7 @@ namespace LSVisionMod.View.模板步骤
             grp编辑检测流程.Enabled = true;
             btn添加相机.Enabled = true;
             btn保存模板.Enabled = true;
-            lab模板名称提示.Text = "";
+            
             return true;
         }
 
@@ -349,5 +365,6 @@ namespace LSVisionMod.View.模板步骤
                 }
             }
         }
+
     }
 }
